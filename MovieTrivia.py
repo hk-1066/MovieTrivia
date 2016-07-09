@@ -20,7 +20,7 @@ def addUser():
     uName = request.form['uName']
     pWord = request.form['pWord']
 
-    print(uName, pWord)
+    # print(uName, pWord)
 
     nUser = models.User()
     nUser.username = uName
@@ -28,7 +28,19 @@ def addUser():
     db.session.add(nUser)
     db.session.commit()
 
-    print("commit data")
+    # print("commit data")
+
+    return render_template("loggedIn.html")
+
+@app.route('/getUser', methods=['get'])
+def getUser():
+    print("get user")
+
+    nUser = models.User()
+    users = models.User.query.all()
+
+    for u in users:
+        print(u.id, u.username, u.password)
 
     return render_template("loggedIn.html")
 
